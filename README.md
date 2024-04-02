@@ -7,6 +7,11 @@ So, the idea is to develop a new filter-and-refine based approach for spatial jo
 Then we can feed the reduced data to a data science task of our selection (for example DBSCAN clustering, regression, recommendation etc.,) 
 
  
+***Team members***:
+- [Dr. Isam Al Jawarneh](https://isamaljawarneh.github.io/) (```supervisor```)
+- [write your name]() (```member```)
+- [write your name]() (```member```) 
+- [write your name]() (```member```) 
 
 Reference paper: 
 
