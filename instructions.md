@@ -33,3 +33,58 @@ For the paper writing and submission
 - Results:
     - parameters : tolerance in the x-axis , accuracy [RMSE](https://www.statisticshowto.com/probability-and-statistics/regression-analysis/rmse-root-mean-square-error/). Take a query, "what is the average pm10 value for each neighborhood", consider for calculating the RMSE (RMSD) that the expected value is the average pm10 for each neighborhood independently (theta-hat) after using the join with simplification, and the original average (theta) before using simplification with the original polygons. [RMSE equation](https://en.wikipedia.org/wiki/Root-mean-square_deviation)
     - the same thing x/y but with Mean Absoulte Percentage Error [MAPE](https://en.wikipedia.org/wiki/Mean_absolute_percentage_error)
+
+--------------------
+
+NEW! April 2, 2024
+
+- read more how simplify in mapshaper works
+
+> ### -simplify
+
+Mapshaper supports Douglas-Peucker simplification and two kinds of Visvalingam simplification.
+
+Douglas-Peucker (a.k.a. Ramer-Douglas-Peucker) produces simplified lines that remain within a specified distance of the original line. It is effective for thinning dense vertices but tends to form spikes at high simplification.
+
+Visvalingam simplification iteratively removes the least important point from a polyline. The importance of points is measured using a metric based on the geometry of the triangle formed by each non-endpoint vertex and the two neighboring vertices. The `visvalingam` option uses the "effective area" metric &mdash; points forming smaller-area triangles are removed first.
+
+Mapshaper's default simplification method uses Visvalingam simplification but weights the effective area of each point so that smaller-angle vertices are preferentially removed, resulting in a smoother appearance.
+
+When working with multiple polygon and polyline layers, the `-simplify` command is applied to all of the layers.
+
+**Options**
+
+`<percentage>` or `percentage=`  Percentage of removable points to retain. Accepts values in the range `0%-100%` or `0-1`.
+
+`dp` `rdp`	Use Douglas-Peucker simplification.
+
+`visvalingam`   Use Visvalingam simplification with the "effective area" metric.
+
+`weighted`   Use weighted Visvalingam simplification (this is the default). Points located at the vertex of more acute angles are preferentially removed, for a smoother appearance.
+
+`weighting=`  Coefficient for weighting Visvalingam simplification (default is 0.7). Higher values produce smoother output. `weighting=0` is equivalent to unweighted Visvalingam simplification.
+
+`resolution=`  Use an output resolution (e.g. `1000x800`) to control the amount of simplification.
+
+`interval=`	 Specify simplification amount in units of distance. Uses meters when simplifying unprojected datasets in 3D space (see `planar` option below), otherwise uses the same units as the source data.
+
+`variable`  Apply a variable amount of simplification to the paths in a polygon or polygon layer. This flag changes the `interval=`, `percentage=` and `resolution=` options to accept JavaScript expressions instead of literal values. (See the `-each` command for information on mapshaper JS expressions).
+
+`planar`  By default, mapshaper simplifies decimal degree coordinates in 3D space (using geocentric x,y,z coordinates). The `planar` option treats lng,lat coordinates as x,y coordinates on a Cartesian plane.
+
+`keep-shapes`   Prevent polygon features from disappearing at high simplification. For multipart features, mapshaper preserves the part with the largest original bounding box.
+
+`no-repair`	By default, mapshaper rolls back simplification along pairs of intersecting line segments by re-introducing removed points until either the intersection disappears or there are no more points to add. This option disables intersection repair.
+
+`stats`  Display summary statistics relating to the geometry of simplified paths.
+
+**Examples**
+```bash
+# Simplify counties.shp using the default algorithm, retaining 10% of removable vertices.
+mapshaper counties.shp -simplify 10% -o simplified.shp
+
+# Use Douglas-Peucker simplification with a 100 meter threshold.
+mapshaper states.shp -simplify dp interval=100 -o simplified/
+```
+
+[mapshaper](https://github.com/mbloch/mapshaper/blob/master/REFERENCE.md)
