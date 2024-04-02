@@ -38,7 +38,7 @@ For the paper writing and submission
 
 NEW! April 2, 2024
 
-- read more how simplify in mapshaper works
+- read more how simplify in mapshaper works, add the implementation for `visvalingam` algorithm and do all the comparisons between `DP` and `visvalingam`
 
 > ### -simplify
 
