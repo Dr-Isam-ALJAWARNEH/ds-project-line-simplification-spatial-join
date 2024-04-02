@@ -9,9 +9,9 @@ Then we can feed the reduced data to a data science task of our selection (for e
  
 ***Team members***:
 - [Dr. Isam Al Jawarneh](https://isamaljawarneh.github.io/) (```supervisor```)
-- [write your name]() (```member```)
-- [write your name]() (```member```) 
-- [write your name]() (```member```) 
+- [Fatima Alhammadi]() (```member```)
+- [Haya AlSuwaidi]() (```member```) 
+- [Shooq Alzarouni]() (```member```) 
 
 Reference paper: 
 
