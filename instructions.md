@@ -15,6 +15,7 @@
 - read more how simplify in mapshaper works, add the implementation for `visvalingam` algorithm and do all the comparisons between `DP` and `visvalingam`. Have a look at  `Appendix A` by the end of this file for insights!
 - After the join with the `simplified version`, perform each of the following queries for testing:
     - Geocode using H3, and S2
+        - generate geo-cover (H3 coverer or S2 coverer from the polygon file, then use it as a prefiltering stage to sample only data resulting in the cover), compare cover file size in MB.
     - Stratified sampling (using H3 and S2)
     - Top-N
     - containment spatial query (regular and irrigular)
