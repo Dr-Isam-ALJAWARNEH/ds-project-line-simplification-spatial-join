@@ -48,13 +48,13 @@
     - also, a very good explanation (which you can use and cite when you write your paper) is our recent paper in [^1].
     - you specifically need to check the part that reads ```filter-and-refine algorithm [39]. It operates in three steps as follows....```
     [^1]: Al Jawarneh, I. M., Foschini, L., & Bellavista, P. (2023). Efficient Integration of Heterogeneous Mobility-Pollution Big Data for Joint Analytics at Scale with QoS Guarantees. Future Internet, 15(8), 263. [available online](https://www.mdpi.com/1999-5903/15/8/263)
-    - Geocode using H3, and S2
+    - generate Geocode using geohash, H3, and S2
         - generate geo-cover (H3 coverer or S2 coverer from the polygon file, then use it as a prefiltering stage to sample only data resulting in the cover), compare cover file size in MB.
-    - Stratified sampling (using H3 and S2)
-    - Top-N
+    - Stratified sampling (using H3 and S2), perform stratified-like sampling using H3 and S2. Imagine each  `simplified` polgon is covered with a list of geocodes (being it `geohash`, `H3` or `S2`), then the number of geocodes covering each polygon after simplification is reduced, this means that the `sampling map` (i.e., number of geocode `brackets`) from which you wish to withdraw samples is reduced, and the sample is smaller (`less accuracy`) and the system is faster in performing geospatial subsequent operations, such as nearby queries and Top-N queries, however, you need to measure by how much the accuracy is reduced as a trade-off for the accuracy gain!
+    - Top-N. Test on Top-N queries and,
     - containment spatial query (regular and irrigular)
-    - DBSCAN
-    - Choropleth map generation
+    - DBSCAN (BONUS)
+    - Choropleth map generation (BONUS)
     - And compare with RMSE, MAPE, etc.,
     - to calculate any of these metrics to test the accuracy, you need to group data into two distributions, one for the original and one for the simplified, then calculate those metrics as distances between distributions. Here (in the notebook comments!), I am coding an example for RMSE, MAPE, Pearson, KL Divergence and other metrics for the count and Top-N respectively. That is to say, how much is the difference in count of PM readings between the original data and the simplified data.
     - you need to apply the same methods for the distribution of the averages, by how much the distribution of averages across neighborhoods in city-wide diverge for the simplified version data as compared to the original data
