@@ -9,11 +9,45 @@
 ## `TODO:` 
 1. [ ] start by performing Exploratory Data Analytics (EDA) for the data > for example - historgrams to study the distribution of data (you have three sensors) - `Kernel Density (univariate, aspatial)` - get insights from the following: - [02_geovisualization](https://darribas.org/gds_scipy16/ipynb_md/02_geovisualization.html) - [Exploratory Spatial Data Analysis (ESDA)](https://darribas.org/gds_scipy16/ipynb_md/04_esda.html) - [NYC Data](https://github.com/PacktPublishing/Geospatial-Data-Science-Quick-Start-Guide/blob/master/Chapter02/NYC%20Data.ipynb) - [Performing Spatial operations like a Pro](https://github.com/PacktPublishing/Geospatial-Data-Science-Quick-Start-Guide/blob/master/Chapter03/Chapter3.ipynb) such as `Spatial join`
    > also,
-   >
    > - Exploratory Spatial Data Analysis (ESDA) [example](https://darribas.org/gds_scipy16/ipynb_md/04_esda.html), such as `Spatial Autocorrelation`
-   > - Exploratory Spatial and Temporal Data Analysis (ESTDA), [example](https://darribas.org/gds_scipy16/ipynb_md/05_spatial_dynamics.html), such as `Spaghetti Plot`, `Kernel Density (univariate, aspatial)`, `Markov Chains`, and `Spatial Markov`, [Spatial Autocorellation](https://github.com/PacktPublishing/Geospatial-Data-Science-Quick-Start-Guide/blob/master/Chapter04/Chapter4.ipynb), and [GLobal Spatial Autocorrelation](https://github.com/PacktPublishing/Geospatial-Data-Science-Quick-Start-Guide/blob/master/Chapter04/Chapter4.ipynb)
-- read more how simplify in mapshaper works, add the implementation for `visvalingam` algorithm and do all the comparisons between `DP` and `visvalingam`. Have a look at  `Appendix A` by the end of this file for insights!
-- After the join with the `simplified version`, perform each of the following queries for testing:
+   > - Exploratory Spatial and Temporal Data Analysis (ESTDA), [example](https://darribas.org/gds_scipy16/ipynb_md/05_spatial_dynamics.html), some of the following, such as `Spaghetti Plot`, `Kernel Density (univariate, aspatial)`, `Markov Chains`, and `Spatial Markov`, [Spatial Autocorellation](https://github.com/PacktPublishing/Geospatial-Data-Science-Quick-Start-Guide/blob/master/Chapter04/Chapter4.ipynb), and [GLobal Spatial Autocorrelation](https://github.com/PacktPublishing/Geospatial-Data-Science-Quick-Start-Guide/blob/master/Chapter04/Chapter4.ipynb)
+
+2. [ ] After the join with the `simplified version`, perform each of the following queries for testing:
+    - create a covering h3 for each polygon in the `simplified version` of the `geojson` file, the result is an array of H3 values covering each polygon,
+        for example , given a polygon ``` python 
+        coordinates: [[
+              [-122.47485823276713, 37.85878356045377],
+              [-122.47504834087829, 37.86196795698972],
+              [-122.47845104316997, 37.86010614563313],
+              [-122.47485823276713, 37.85878356045377]
+            ]]```, applying
+        ```const hexagons = geojson2h3.featureToH3Set(polygon, 10);```
+        this will result in an array, `// -> ['8a2830855047fff', '8a2830855077fff', '8a283085505ffff', '8a283085506ffff']`, for each polygon in the geojson the same appllies, an array of covering H3 values.
+        > you can get insights from here, [geojson2h3](https://github.com/uber/geojson2h3)
+- we need to create a compact representation, specifically you need to  `explode` the arrays so that you have two columns, one column is `neighborhood` and the other is the `h3 value`, such that for each neighborhood we have several corresponding h3 values (those are the values appeared previously in the array).
+
+    | neighborhood    | H3 |
+    | -------- | ------- |
+    | Bronx  | '8a2830855047fff'    |
+    | Bronx | '8a2830855077fff'     |
+    | Bronx    | '8a283085505ffff'    |
+    | center  | '8a283085506ffff'    |
+    | center | '8a283085504ffff'     |
+    | center    | '8a283085502ffff'    |
+
+> you can imagine then that one can perform a filter-refine spatial join (between a csv and geojson files) as  follows: 
+- perform the equi-join first on the H3 values, such that you find neighborhood to which each long/lat pair represented by H3 from the csv (mobility, air quality data etc.,) belongs to. Same H3 values can have several neighborhoods because this is an approximate join known as MBR-join (MBR for Minimum Bounding Rectangle), this is a kind of equi-join. This will result in candidates for which you have to apply the exact geometrical operation to check whether a point (long/lat pair represented by H3 value) falls within the neighborhood (i.e., the polygon in the geojson file) or not in real geometries, which is normally achieved using ray-casting algorithm.
+- Having generated the `H3 cover` from the polygon file, you develop a simple algorithm to resemble the filter-and-refinement join using the H3 as the encoding system. 
+- Do the same for Google's S2, generate a cover for each polygon in the geojson file, the result should be a dataframe with a compact format (two columns, `neighborhood ` and `S2 value`), same as described for the H3. 
+    - also implement a filter-and-refine spatial join using S2 this time.
+    - check [S2 Region Coverer Online Viewer](https://igorgatis.github.io/ws2/), to see what it means by generating an S2 coverer!, You can also use the following [s2-geojson](https://github.com/pantrif/s2-geojson) as an S2 coverer viewer, and also read more about in the original work by google's [S2 geometry](http://s2geometry.io/) (`SIDE`: you can use those to write some parts of your paper!), also [S2 Covering Examples](http://s2geometry.io/devguide/examples/coverings.html)
+    - probably you can use `s2sphere` framework to generate the coverer given a geohjson file. For example something similar to the following: [get a set of S2 cells covering a rectangle in](https://s2sphere.readthedocs.io/en/latest/quickstart.html)
+    - here is the implementation of the [RegionCoverer class](https://s2sphere.readthedocs.io/en/latest/_modules/s2sphere/sphere.html#RegionCoverer) from s2shpere implementation!
+- Do the same for geohash, generate geohash cover, then perform `filter-refine` spatial join, and compare (time-based and accuracy-based QoS requirements) with S2 and H3.
+- read more about `filter-and-refine` spatial join in the following [presentation](https://isamaljawarneh.github.io/talks/FOSS4G2021.pdf)
+    - also, a very good explanation (which you can use and cite when you write your paper) is our recent paper in [^1].
+    - you specifically need to check the part that reads ```filter-and-refine algorithm [39]. It operates in three steps as follows....```
+    [^1]: Al Jawarneh, I. M., Foschini, L., & Bellavista, P. (2023). Efficient Integration of Heterogeneous Mobility-Pollution Big Data for Joint Analytics at Scale with QoS Guarantees. Future Internet, 15(8), 263. [available online](https://www.mdpi.com/1999-5903/15/8/263)
     - Geocode using H3, and S2
         - generate geo-cover (H3 coverer or S2 coverer from the polygon file, then use it as a prefiltering stage to sample only data resulting in the cover), compare cover file size in MB.
     - Stratified sampling (using H3 and S2)
@@ -24,6 +58,8 @@
     - And compare with RMSE, MAPE, etc.,
     - to calculate any of these metrics to test the accuracy, you need to group data into two distributions, one for the original and one for the simplified, then calculate those metrics as distances between distributions. Here (in the notebook comments!), I am coding an example for RMSE, MAPE, Pearson, KL Divergence and other metrics for the count and Top-N respectively. That is to say, how much is the difference in count of PM readings between the original data and the simplified data.
     - you need to apply the same methods for the distribution of the averages, by how much the distribution of averages across neighborhoods in city-wide diverge for the simplified version data as compared to the original data
+- read more how simplify in mapshaper works, add the implementation for `visvalingam` algorithm and do all the comparisons between `DP` and `visvalingam`. Have a look at  `Appendix A` by the end of this file for insights!
+
 
 -----------------------------
 <!-- Task 1 -->
