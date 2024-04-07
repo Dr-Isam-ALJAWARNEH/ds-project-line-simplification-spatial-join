@@ -59,9 +59,43 @@
     - to calculate any of these metrics to test the accuracy, you need to group data into two distributions, one for the original and one for the simplified, then calculate those metrics as distances between distributions. Here (in the notebook comments!), I am coding an example for RMSE, MAPE, Pearson, KL Divergence and other metrics for the count and Top-N respectively. That is to say, how much is the difference in count of PM readings between the original data and the simplified data.
     - you need to apply the same methods for the distribution of the averages, by how much the distribution of averages across neighborhoods in city-wide diverge for the simplified version data as compared to the original data
 - read more how simplify in mapshaper works, add the implementation for `visvalingam` algorithm and do all the comparisons between `DP` and `visvalingam`. Have a look at  `Appendix A` by the end of this file for insights!
-
-
 -----------------------------
+<!-- Task 3 -->
+# [ ] Task 3!
+## writing your paper
+# reference paper
+there is my recent paper [^10] `very similar` which you can use as a springboard to start writing your paper, I uploaded a copy  ` Efficient spark-based framework for big geospatial data query processing and analysis` [^10]. Use it as a starting point. However, you need also to cite our other papers detailed below!
+# `IMPortant` test with more than one data, add NYC taxi mobility data (for journal paper, you need tests on more than one data):
+[available online](https://github.com/IsamAljawarneh/datasets/tree/master/data), `nyc1.zip`
+- start writing your paper, either for conferences or journal. For journal, use the `applied sciences` template atatched in the `target-venue` folder titled `applsci-template.dot`. (minimum 10 pages)
+- or even, consider one of the following two conference (IEEE template for those conferences is attached) (minimum 6 pages)
+    - [MCNA - Spain](https://mcna-conference.org/2024/committee.php)
+    - [IDSTA - Croatia](https://idsta-conference.org/2024/calls.php)
+1.  [ ] Include (cite appropriately) all of the following papers! reference papers include:
+    # Category A : for sampling desing and Approximate Query Processing (AQP)
+    > Spatial-aware approximate big data stream processing [^2] and
+    > Polygon Simplification for the Efficient Approximate Analytics of Georeferenced Big Data [^3]
+    > QoS-aware approximate query processing for smart cities spatial data streams. [^4]
+    > Spatially representative online Big Data sampling for smart cities. [^5]
+    # Category B: for spatial join procesing
+    > SpatialSSJP: QoS-Aware Adaptive Approximate Stream-Static Spatial Join Processor [^6]
+    > Efficient Integration of Heterogeneous Mobility-Pollution Big Data for Joint Analytics at Scale with QoS Guarantees [^7]
+    > Efficiently integrating mobility and environment data for climate change analytics.[^8]
+    > Efficient QoS-aware spatial join processing for scalable NoSQL storage frameworks. [^9]
+    # Category C: clustering DBSCAN
+    > Efficient spark-based framework for big geospatial data query processing and analysis [^10]
+ 
+    [^1]: Al Jawarneh, I. M., Foschini, L., & Corradi, A. (2023, November). Efficient Generation of Approximate Region-based Geo-maps from Big Geotagged Data. In 2023 IEEE 28th International Workshop on Computer Aided Modeling and Design of Communication Links and Networks (CAMAD) (pp. 93-98). IEEE.
+    [^2]: Al Jawarneh, I. M., Bellavista, P., Foschini, L., & Montanari, R. (2019, December). Spatial-aware approximate big data stream processing. In 2019 IEEE global communications conference (GLOBECOM) (pp. 1-6). IEEE. [available online](https://www.researchgate.net/profile/Isam-Al-Jawarneh/publication/339562314_Spatial-Aware_Approximate_Big_Data_Stream_Processing/links/5ff45764299bf14088708888/Spatial-Aware-Approximate-Big-Data-Stream-Processing.pdf)
+    [^3]: Al Jawarneh, I. M., Foschini, L., & Bellavista, P. (2023). Polygon Simplification for the Efficient Approximate Analytics of Georeferenced Big Data. Sensors, 23(19), 8178.[available online](https://www.mdpi.com/1424-8220/23/19/8178)
+    [^4]: Al Jawarneh, I. M., Bellavista, P., Corradi, A., Foschini, L., & Montanari, R. (2021). QoS-aware approximate query processing for smart cities spatial data streams. Sensors, 21(12), 4160. [available online](https://www.mdpi.com/1424-8220/21/12/4160)
+    [^5]: Al Jawarneh, I. M., Bellavista, P., Corradi, A., Foschini, L., & Montanari, R. (2020, September). Spatially representative online Big Data sampling for smart cities. In 2020 IEEE 25th International Workshop on Computer Aided Modeling and Design of Communication Links and Networks (CAMAD) (pp. 1-6). IEEE.[presentation available online](https://isamaljawarneh.github.io/talks/CAMAD20.pdf)
+    [^6]: Al Jawarneh, I. M., Bellavista, P., Corradi, A., Foschini, L., & Montanari, R. (2023). SpatialSSJP: QoS-Aware Adaptive Approximate Stream-Static Spatial Join Processor. IEEE Transactions on Parallel and Distributed Systems. [available online](https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=10309986)
+    [^7]: Al Jawarneh, I. M., Foschini, L., & Bellavista, P. (2023). Efficient Integration of Heterogeneous Mobility-Pollution Big Data for Joint Analytics at Scale with QoS Guarantees. Future Internet, 15(8), 263. [available online](https://www.mdpi.com/1999-5903/15/8/263)
+    [^8]:Al Jawarneh, I. M., Bellavista, P., Corradi, A., Foschini, L., & Montanari, R. (2021, October). Efficiently integrating mobility and environment data for climate change analytics. In 2021 IEEE 26th International Workshop on Computer Aided Modeling and Design of Communication Links and Networks (CAMAD) (pp. 1-5). IEEE.[presentation available online](https://isamaljawarneh.github.io/talks/CAMAD21.pdf)
+    [^9]:Al Jawarneh, I. M., Bellavista, P., Corradi, A., Foschini, L., & Montanari, R. (2020). Efficient QoS-aware spatial join processing for scalable NoSQL storage frameworks. IEEE Transactions on Network and Service Management, 18(2), 2437-2449.[available online](https://isamaljawarneh.github.io/pubs/TNSM3034150.pdf)
+    [^10]: Aljawarneh, I. M., Bellavista, P., Corradi, A., Montanari, R., Foschini, L., & Zanotti, A. (2017, July). Efficient spark-based framework for big geospatial data query processing and analysis. In 2017 IEEE symposium on computers and communications (ISCC) (pp. 851-856). IEEE. [available online](https://www.academia.edu/download/55478212/08024633.pdf)
+--------------------------------
 <!-- Task 1 -->
 # [ ] Task 1! 
 1. [X] run the example starting code and familiarize yourself with some geosaptial processing techniques, including:
