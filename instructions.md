@@ -64,7 +64,7 @@
 # [ ] Task 3!
 ## writing your paper
 # reference paper
-there is my recent paper [^10] `very similar` which you can use as a springboard to start writing your paper, I uploaded a copy  ` Efficient spark-based framework for big geospatial data query processing and analysis` [^10]. Use it as a starting point. However, you need also to cite our other papers detailed below!
+there are my recent papers, check `Category B: for spatial join procesing`, those are `very similar` which you can use as a springboard to start writing your paper, `SpatialSSJP: QoS-Aware Adaptive Approximate Stream-Static Spatial Join Processor` [^6], `Efficient Integration of Heterogeneous Mobility-Pollution Big Data for Joint Analytics at Scale with QoS Guarantees` [^7], `Efficiently integrating mobility and environment data for climate change analytics.`[^8], `Efficient QoS-aware spatial join processing for scalable NoSQL storage frameworks.` [^9]. Use them as a starting point. However, you need also to cite our other papers detailed below!
 # `IMPortant` test with more than one data, add NYC taxi mobility data (for journal paper, you need tests on more than one data):
 [available online](https://github.com/IsamAljawarneh/datasets/tree/master/data), `nyc1.zip`
 - start writing your paper, either for conferences or journal. For journal, use the `applied sciences` template atatched in the `target-venue` folder titled `applsci-template.dot`. (minimum 10 pages)
