@@ -1,5 +1,20 @@
 # instructions
 ## follow the following instructions
+-----------------------------------
+<!-- Task 2 -->
+# [ ] Task 2! 
+# `Update: April 6, 2024`
+### `N.B.` references are available in the end of this instruction file!
+# `Required OPTIMIZATION ==> IMPORTANT!`
+## `TODO:` 
+1. [ ] start by performing Exploratory Data Analytics (EDA) for the data > for example - historgrams to study the distribution of data (you have three sensors) - `Kernel Density (univariate, aspatial)` - get insights from the following: - [02_geovisualization](https://darribas.org/gds_scipy16/ipynb_md/02_geovisualization.html) - [Exploratory Spatial Data Analysis (ESDA)](https://darribas.org/gds_scipy16/ipynb_md/04_esda.html) - [NYC Data](https://github.com/PacktPublishing/Geospatial-Data-Science-Quick-Start-Guide/blob/master/Chapter02/NYC%20Data.ipynb) - [Performing Spatial operations like a Pro](https://github.com/PacktPublishing/Geospatial-Data-Science-Quick-Start-Guide/blob/master/Chapter03/Chapter3.ipynb) such as `Spatial join`
+   > also,
+   >
+   > - Exploratory Spatial Data Analysis (ESDA) [example](https://darribas.org/gds_scipy16/ipynb_md/04_esda.html), such as `Spatial Autocorrelation`
+   > - Exploratory Spatial and Temporal Data Analysis (ESTDA), [example](https://darribas.org/gds_scipy16/ipynb_md/05_spatial_dynamics.html), such as `Spaghetti Plot`, `Kernel Density (univariate, aspatial)`, `Markov Chains`, and `Spatial Markov`, [Spatial Autocorellation](https://github.com/PacktPublishing/Geospatial-Data-Science-Quick-Start-Guide/blob/master/Chapter04/Chapter4.ipynb), and [GLobal Spatial Autocorrelation](https://github.com/PacktPublishing/Geospatial-Data-Science-Quick-Start-Guide/blob/master/Chapter04/Chapter4.ipynb)
+- read more how simplify in mapshaper works, add the implementation for `visvalingam` algorithm and do all the comparisons between `DP` and `visvalingam`. Have a look at  `Appendix A` by the end of this file for insights!
+
+-----------------------------
 1. [ ] run the example starting code and familiarize yourself with some geosaptial processing techniques, including:
     - sampling
     - spatial join
@@ -35,13 +50,8 @@ For the paper writing and submission
     - the same thing x/y but with Mean Absoulte Percentage Error [MAPE](https://en.wikipedia.org/wiki/Mean_absolute_percentage_error)
 
 --------------------
-
-NEW! April 2, 2024
-
-- read more how simplify in mapshaper works, add the implementation for `visvalingam` algorithm and do all the comparisons between `DP` and `visvalingam`
-
+# Appendix A
 > ### -simplify
-
 Mapshaper supports Douglas-Peucker simplification and two kinds of Visvalingam simplification.
 
 Douglas-Peucker (a.k.a. Ramer-Douglas-Peucker) produces simplified lines that remain within a specified distance of the original line. It is effective for thinning dense vertices but tends to form spikes at high simplification.
@@ -86,5 +96,4 @@ mapshaper counties.shp -simplify 10% -o simplified.shp
 # Use Douglas-Peucker simplification with a 100 meter threshold.
 mapshaper states.shp -simplify dp interval=100 -o simplified/
 ```
-
 [mapshaper](https://github.com/mbloch/mapshaper/blob/master/REFERENCE.md)
