@@ -1,6 +1,9 @@
 # Distinguished project :clap: :star: :star: :star: :star: :star: 
 # Topic 6: line simplification algorithms to joining spatial data
 
+
+DONE!
+
 Spatial join of mobility and climate data, incorporating the line simplification algorithms (such as douglas-peuker algorithm) as a front stage to reduce the size of the polygon files, then we use the filter and refinement approach to join the data. 
 
 So, the idea is to develop a new filter-and-refine based approach for spatial join, which takes advantage of douglas peuker algorithm to perform optimized spatial join on the integrated schema. 
